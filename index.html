@@ -15,11 +15,18 @@
     <script type="text/babel">
         var Yuvaraj = React.createClass({
             render: function(){
-                return(<h1>Hello World</h1>);
+                return(<div>
+                <h1>Hello World</h1>
+                   <h1>Hello World</h1>
+                </div>);
             }
         });
         ReactDOM.render(
-           <Yuvaraj />,
+            <div>
+           <Yuvaraj />
+             <Yuvaraj />
+               <Yuvaraj />
+           </div>,
             document.getElementById('container')
         );
     </script>
