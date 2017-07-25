@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>React - Template</title>
+    <script src="../../js/react.min.js"></script>
+    <script src="../../js/react-dom.min.js"></script>
+    <script src="../../js/browser.min.js"></script>
+</head>
+<body>
+
+    <div id="container"></div>
+    <script type="text/babel">
+
+        var Comment = React.createClass({
+
+            getInitialState: function(){
+                return {editing:false}
+            },
+            edit: function(){
+                this.setState({editing:true});
+            },
+            remove:function(){
+                console.log('remove');
+            },
+            save:function(){
+                var val = this.refs.newText.value;
+                console.log('val', val);
+                this.setState({editing:false});
+            },
+             renderNormal: function(){
+                return(
+                    <div className="">
+                        <div>{this.props.children}</div>
+                        <button onClick = {this.edit}>Edit</button>
+                         <button onClick = {this.remove}>Remove</button>
+                    </div>
+                );
+            },
+             renderForm: function(){
+                return(
+                    <div className="">
+                        <textarea ref="newText" default={this.props.children}></textarea>
+                        <button onClick = {this.edit}>Edit</button>
+                         <button onClick = {this.save}>save</button>
+                    </div>
+                );
+            },
+            render: function(){
+              if(this.state.editing){
+                return this.renderForm();
+              }else{
+                return this.renderNormal();
+              }
+            }
+        });
+
+        var MultipleComments = React.createClass({
+            getInitialState:function(){
+                return{
+                    comments:[
+                        "Hi",
+                        "Hello",
+                        "how are you"
+                    ]
+                }
+            },
+
+            render:function(){
+                return(
+
+                    <div>
+                        { 
+                            this.state.comments.map(function(text, i){
+                                return(<Comment key={i}>{text}</Comment>)
+                            })
+                        }
+                    </div>
+                );
+            }
+        });
+
+        ReactDOM.render(
+            <MultipleComments />,
+            document.getElementById('container')
+        );
+    </script>
+
+</body>
+</html>
