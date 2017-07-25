@@ -23,10 +23,10 @@
             },
             remove:function(){
                 console.log('remove');
+                this.props.removeCommmentText(this.props.index);
             },
-            save:function(){
-                var val = this.refs.newText.value;
-                console.log('val', val);
+            save:function(){              
+                this.props.updateCommmentText(this.refs.newText.value, this.props.index);
                 this.setState({editing:false});
             },
              renderNormal: function(){
@@ -56,7 +56,7 @@
             }
         });
 
-        var MultipleComments = React.createClass({
+        var Board = React.createClass({
             getInitialState:function(){
                 return{
                     comments:[
@@ -66,15 +66,25 @@
                     ]
                 }
             },
-
+            removeCommment:function(i){
+                var arr = this.state.comments;
+                arr.splice(i,1);
+                this.setState({comments:arr})
+            },
+             updateCommment: function(newText, i){
+                var arr = this.state.comments;
+                arr[i] = newText;
+                this.setState({comments:arr})
+            },
+            eachComment:function(text, i){
+                return(<Comment key={i} index={i} updateCommmentText = {this.updateCommment} removeCommmentText = {this.removeCommment}>{text}</Comment>);
+            },
             render:function(){
                 return(
 
                     <div>
                         { 
-                            this.state.comments.map(function(text, i){
-                                return(<Comment key={i}>{text}</Comment>)
-                            })
+                            this.state.comments.map(this.eachComment)
                         }
                     </div>
                 );
@@ -82,7 +92,7 @@
         });
 
         ReactDOM.render(
-            <MultipleComments />,
+            <Board />,
             document.getElementById('container')
         );
     </script>
