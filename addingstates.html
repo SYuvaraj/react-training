@@ -66,6 +66,11 @@
                     ]
                 }
             },
+            add:function(text){
+                 var arr = this.state.comments;
+                 arr.push(text);
+                this.setState({comments:arr})
+            },
             removeCommment:function(i){
                 var arr = this.state.comments;
                 arr.splice(i,1);
@@ -83,9 +88,8 @@
                 return(
 
                     <div>
-                        { 
-                            this.state.comments.map(this.eachComment)
-                        }
+                        <button onClick = {this.add.bind(null, "default")}>Add</button>
+                        <div>{ this.state.comments.map(this.eachComment)}</div>
                     </div>
                 );
             }
