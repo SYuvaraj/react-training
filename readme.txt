@@ -1,3 +1,5 @@
 React Training
-Learned Tutorials Point React concepts
-Bucky Roberts React JS
+Tutorials Point completed
+codecademy completed
+Bucky Roberts React JS completed
+Bucky roberts Redux completed
